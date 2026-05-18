@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methodology — How MMDAI Calculators Work | Sources, Formulas, Update Policy</title>
+  <meta name="description" content="How MMDAI calculators work — legislative sources, formulas, update policy and accuracy principles across all 8 markets and 24 calculators.">
+  <link rel="canonical" href="https://mmandai.github.io/methodology/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='40' fill='%23DC2626' font-weight='700'>MM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","name":"MMDAI Methodology","url":"https://mmandai.github.io/methodology/","description":"How MMDAI real estate calculators work — legislative sources, formulas, update policy and accuracy principles across 8 markets and 24 calculators.","publisher":{"@type":"Organization","name":"MMDAI","url":"https://mmandai.github.io"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MMDAI","item":"https://mmandai.github.io"},{"@type":"ListItem","position":2,"name":"Methodology","item":"https://mmandai.github.io/methodology/"}]}}
+  </script>
+
+  <style>
+    :root {
+      --bg:#F5F5F0;--bg2:#FFFFFF;--bg3:#EBEBEA;
+      --line:rgba(0,0,0,0.09);
+      --text:#111111;--muted:rgba(17,17,17,0.52);--dim:rgba(17,17,17,0.32);
+      --red:#DC2626;--navy:#0F172A;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;background:rgba(245,245,240,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;}
+    .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;letter-spacing:-0.5px;color:var(--text);}
+    .nav-links{display:flex;gap:24px;align-items:center;}
+    .nav-links a{font-size:13px;color:var(--muted);transition:color .2s;}
+    .nav-links a:hover{color:var(--text);}
+    .nav-cta{font-size:13px;font-weight:600;background:var(--red);color:#fff !important;padding:9px 20px;border-radius:40px;transition:opacity .2s;}
+    .nav-cta:hover{opacity:.85;}
+    @media(max-width:600px){.nav-cta{display:none;}}
+
+    /* HERO */
+    .hero{max-width:860px;margin:0 auto;padding:80px 24px 64px;text-align:center;}
+    .hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;opacity:.8;}
+    .hero-eyebrow::before{content:'// ';}
+    .hero-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(40px,6vw,72px);font-weight:800;line-height:1.0;letter-spacing:-0.03em;margin-bottom:24px;}
+    .hero-lead{font-size:18px;color:var(--muted);max-width:600px;margin:0 auto 40px;line-height:1.7;}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+    .hero-pill{font-family:'DM Mono',monospace;font-size:12px;color:var(--dim);padding:6px 14px;border:1px solid var(--line);border-radius:20px;letter-spacing:.5px;}
+
+    /* DIVIDER */
+    .divider{max-width:1100px;margin:0 auto;height:1px;background:var(--line);}
+
+    /* PRINCIPLES STRIP */
+    .principles-strip{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .principles-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:48px 24px;gap:0;}
+    .principle-item{text-align:center;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .principle-item+.principle-item{border-left:1px solid var(--line);}
+    .principle-icon{font-size:28px;margin-bottom:14px;line-height:1;display:flex;align-items:center;justify-content:center;width:48px;height:48px;}
+    .principle-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;text-align:center;}
+    .principle-desc{font-size:12px;color:var(--muted);line-height:1.5;text-align:center;}
+    @media(max-width:768px){
+      .principles-inner{grid-template-columns:repeat(2,1fr);gap:0;}
+      .principle-item:nth-child(3){border-left:none;border-top:1px solid var(--line);}
+      .principle-item:nth-child(4){border-top:1px solid var(--line);}
+    }
+    @media(max-width:480px){
+      .principles-inner{grid-template-columns:1fr;}
+      .principle-item+.principle-item{border-left:none;border-top:1px solid var(--line);}
+    }
+
+    /* MAIN CONTENT */
+    .content{max-width:860px;margin:0 auto;padding:72px 24px;}
+    .section-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;text-align:center;}
+    .section-tag::before{content:'// ';}
+    .content h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:700;margin-bottom:20px;letter-spacing:-0.01em;text-align:center;}
+    .content p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:16px;text-align:center;}
+    .content p strong{color:var(--text);font-weight:600;}
+    .content-block{margin-bottom:64px;text-align:center;}
+    .content-block:last-child{margin-bottom:0;}
+
+    /* FORMULA BOX */
+    .formula-box{background:var(--navy);border-radius:12px;padding:28px 32px;margin:24px 0;font-family:'DM Mono',monospace;font-size:13px;color:rgba(255,255,255,.75);line-height:2;}
+    .formula-box .f-label{font-size:10px;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:block;}
+    .formula-box .f-line{color:#fff;}
+    .formula-box .f-comment{color:rgba(255,255,255,.35);}
+
+    /* MARKET SOURCES TABLE */
+    .sources-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+    @media(max-width:600px){.sources-grid{grid-template-columns:1fr;}}
+    .source-card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px 24px;}
+    .source-flag{font-size:20px;margin-bottom:8px;}
+    .source-market{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;}
+    .source-list{list-style:none;padding:0;}
+    .source-list li{font-size:13px;color:var(--muted);line-height:1.8;}
+
+    /* UPDATE POLICY */
+    .update-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+    @media(max-width:700px){.update-grid{grid-template-columns:1fr;}}
+    .update-card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px 24px;text-align:center;}
+    .update-trigger{font-family:'DM Mono',monospace;font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+    .update-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;margin-bottom:8px;}
+    .update-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+    /* LIMITATIONS */
+    .limit-list{margin:20px auto;padding:0;list-style:none;text-align:center;max-width:720px;}
+    .limit-list li{font-size:15px;color:var(--muted);line-height:1.8;padding:12px 16px;border-bottom:1px solid var(--line);}
+    .limit-list li:last-child{border-bottom:none;}
+    .limit-list li strong{color:var(--text);}
+
+    /* CALC LINKS TABLE */
+    .calc-table{width:100%;border-collapse:collapse;margin:24px auto;font-size:14px;text-align:left;}
+    .calc-table th{text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;padding:8px 12px;border-bottom:2px solid var(--line);}
+    .calc-table td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:center;}
+    .calc-table td:first-child{font-weight:600;white-space:nowrap;}
+    .calc-table td a{color:var(--red);text-decoration:underline;text-underline-offset:3px;font-size:13px;}
+    .calc-table td a:hover{opacity:.75;}
+    .calc-table tr:last-child td{border-bottom:none;}
+    .market-badge{font-family:'DM Mono',monospace;font-size:10px;background:var(--bg3);padding:2px 8px;border-radius:4px;letter-spacing:.5px;text-decoration:none;color:var(--text);transition:background .15s;white-space:nowrap;}
+    .market-badge:hover{background:rgba(220,38,38,.1);}
+    /* DARK BAND */
+    .dark-band{background:var(--navy);color:#fff;padding:72px 24px;text-align:center;}
+    .dark-band-inner{max-width:720px;margin:0 auto;}
+    .dark-tag{font-family:'DM Mono',monospace;font-size:10px;color:rgba(220,38,38,.9);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;}
+    .dark-tag::before{content:'// ';}
+    .dark-band h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,4vw,40px);font-weight:800;line-height:1.15;margin-bottom:20px;letter-spacing:-0.02em;}
+    .dark-band h2 em{font-style:normal;color:var(--red);}
+    .dark-band p{font-size:16px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:14px;}
+    .dark-band p strong{color:rgba(255,255,255,.9);}
+
+    /* CTA */
+    .cta-section{background:var(--bg3);border-top:1px solid var(--line);padding:72px 24px;text-align:center;}
+    .cta-section h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:700;margin-bottom:16px;letter-spacing:-0.01em;}
+    .cta-section p{font-size:16px;color:var(--muted);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;}
+    .btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;padding:14px 32px;border-radius:40px;font-weight:600;font-size:15px;transition:opacity .2s,transform .2s;}
+    .btn-primary:hover{opacity:.88;transform:translateY(-1px);}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--line);color:var(--text);padding:14px 32px;border-radius:40px;font-weight:500;font-size:15px;transition:border-color .2s;}
+    .btn-outline:hover{border-color:rgba(220,38,38,.3);}
+
+    /* FOOTER */
+    footer{background:var(--navy);color:rgba(255,255,255,0.5);padding:48px 24px;}
+    .footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;}
+    .footer-logo{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff;letter-spacing:-0.5px;}
+    .footer-links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;}
+    .footer-links a{font-size:13px;color:rgba(255,255,255,.45);transition:color .2s;}
+    .footer-links a:hover{color:rgba(255,255,255,.8);}
+    .footer-divider{width:100%;height:1px;background:rgba(255,255,255,.08);}
+    .footer-copy{font-size:12px;color:rgba(255,255,255,.3);line-height:1.7;}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="https://mmandai.github.io" class="logo">MMDAI</a>
+    <div class="nav-links">
+      <a href="https://mmandai.github.io">All Calculators</a>
+      <a href="https://mmandai.github.io/about/">About</a>
+      <a href="mailto:imemyselfandai@gmail.com">Contact</a>
+      <a href="https://imemyselfai.gumroad.com" class="nav-cta">Download Excel →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Methodology</div>
+  <div class="hero-title">How it works</div>
+  <p class="hero-lead">Every calculator uses actual legislation, not approximations. This page documents the sources, formulas, assumptions and update triggers behind all 24 calculators across 8 markets.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">Legislative sources</span>
+    <span class="hero-pill">Exact formulas</span>
+    <span class="hero-pill">Known limitations</span>
+    <span class="hero-pill">Update policy</span>
+    <span class="hero-pill">Last reviewed May 2026</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRINCIPLES STRIP -->
+<div class="principles-strip">
+  <div class="principles-inner">
+    <div class="principle-item">
+      <div class="principle-icon">📜</div>
+      <div class="principle-title">Source-first</div>
+      <div class="principle-desc">Every rate, threshold and formula traces back to a specific law, statutory instrument or official guidance document.</div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-icon">⚖️</div>
+      <div class="principle-title">Estimates, not advice</div>
+      <div class="principle-desc">Results are indicative. Individual circumstances vary — always consult a qualified professional before acting.</div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-icon">🔄</div>
+      <div class="principle-title">Updated on change</div>
+      <div class="principle-desc">Calculators are updated when underlying legislation changes — not on a fixed schedule. Each page shows its last review date.</div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-icon">🔓</div>
+      <div class="principle-title">Transparent by default</div>
+      <div class="principle-desc">Every calculator includes an inline methodology accordion showing the exact formulas and assumptions used.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+  <!-- GENERAL APPROACH -->
+  <div class="content-block">
+    <div class="section-tag">General approach</div>
+    <h2>How calculations are built</h2>
+    <p>Each calculator is built from the primary legislative source for that market — not from third-party aggregators or approximations. Rates, thresholds, bands and formulas are coded directly from the authoritative text, then cross-checked against official guidance and worked examples.</p>
+    <p>Where a calculation involves a professional judgment call (e.g. what portion of a property is land vs building for AfA purposes, or what constitutes "principal private residence") the calculator shows a reasonable default with a clear note that the user should verify for their situation.</p>
+    <p><strong>All calculations are estimates.</strong> They do not constitute financial, tax or legal advice. Real-world outcomes depend on individual circumstances, local variations and professional judgment.</p>
+  </div>
+
+  <!-- CORE FORMULAS -->
+  <div class="content-block">
+    <div class="section-tag">Core formulas</div>
+    <h2>Key calculations used across markets</h2>
+    <p>These are the fundamental formulas used across multiple calculators. Each market then applies local tax rates, thresholds and legislative nuances on top.</p>
+
+    <div class="formula-box">
+      <span class="f-label">Rental Yield</span>
+      <div class="f-line">Gross Yield = (Annual Rent ÷ Purchase Price) × 100</div>
+      <div class="f-line">Net Yield = ((Annual Rent − Annual Costs) ÷ Total Investment) × 100</div>
+      <div class="f-line">Cash-on-Cash ROI = (Annual Net Cashflow ÷ Cash Invested) × 100</div>
+      <div class="f-comment">// Total Investment includes purchase price + all acquisition costs</div>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-label">Mortgage / Annuity Payment</span>
+      <div class="f-line">Monthly Payment = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]</div>
+      <div class="f-comment">// P = principal · r = monthly rate · n = term in months</div>
+      <div class="f-comment">// Used in: UK RvB, DE GrESt, ES ITP, IT Cedolare, CH Amortisation</div>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-label">UK SDLT — Banded Calculation</span>
+      <div class="f-line">SDLT = Σ (Band Rate × Amount in Band)</div>
+      <div class="f-line">e.g. £500k property (BTL, post Oct 2024):</div>
+      <div class="f-line">  £0–125k    @ 5%  = £6,250</div>
+      <div class="f-line">  £125–250k  @ 7%  = £8,750</div>
+      <div class="f-line">  £250–500k  @ 10% = £25,000</div>
+      <div class="f-line">  Total SDLT       = £40,000</div>
+      <div class="f-comment">// Standard rates +2% surcharge for BTL. Source: HMRC SDLT guidance</div>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-label">UK Section 24 — Personal vs Ltd Co Tax</span>
+      <div class="f-line">Personal: Tax = (Rent − Allowable Costs) × Income Tax Rate − (Mortgage Interest × 20%)</div>
+      <div class="f-line">Ltd Co:   Tax = (Rent − All Costs incl. Interest) × Corporation Tax Rate</div>
+      <div class="f-line">Annual Saving = Personal Tax − (Ltd Co Tax + Dividend Tax on Extraction)</div>
+      <div class="f-comment">// Source: Finance Act 2015 s.24 · Corporation Tax Act 2010 · HMRC</div>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-label">DE AfA (Depreciation)</span>
+      <div class="f-line">Linear AfA = Building Value × Annual Rate</div>
+      <div class="f-line">  Pre-1925: 2.5%/yr · 1925+: 2.0%/yr · New build 2023+: 3.0%/yr</div>
+      <div class="f-line">Declining Balance (§7 Abs.5a): 5%/yr on remaining book value</div>
+      <div class="f-line">Special §7b: +5%/yr years 1–4 (EH40 standard only)</div>
+      <div class="f-comment">// Source: §7 Abs.4 EStG · §7 Abs.5a EStG · §7b EStG</div>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-label">FR Plus-Value — Holding Period Allowances</span>
+      <div class="f-line">IR allowance:  6%/yr years 6–21, 4% year 22 → 100% (exempt after yr 22)</div>
+      <div class="f-line">PS allowance:  1.65%/yr years 6–21, 1.60% yr 22, 9%/yr years 23–30 → 100%</div>
+      <div class="f-line">Tax = PV Nette IR × 19% + PV Nette PS × 17.2%</div>
+      <div class="f-comment">// Source: CGI art.150 U–150 VH · LF 2025 art.24 (LMNP reintegration)</div>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-label">US MACRS Depreciation (Schedule E)</span>
+      <div class="f-line">Annual Depreciation = Building Value ÷ 27.5 years</div>
+      <div class="f-line">Year 1: partial year based on mid-month convention</div>
+      <div class="f-line">Tax Saving = Depreciation × Marginal Tax Rate</div>
+      <div class="f-comment">// Source: IRS Publication 946 · IRC §168 · 27.5-year residential MACRS</div>
+    </div>
+  </div>
+
+  <!-- SOURCES BY MARKET -->
+  <div class="content-block">
+    <div class="section-tag">Legislative sources</div>
+    <h2>Primary sources by market</h2>
+    <p>These are the authoritative documents each market's calculators are built from. Each inline methodology accordion within the calculator cites the specific article or section relevant to that calculation.</p>
+
+    <div class="sources-grid">
+      <div class="source-card">
+        <div class="source-flag">🇬🇧</div>
+        <div class="source-market">United Kingdom</div>
+        <ul class="source-list">
+          <li>HMRC SDLT guidance (post Oct 2024)</li>
+          <li>Finance Act 2015 — Section 24</li>
+          <li>PRA Supervisory Statement SS13/16 (ICR)</li>
+          <li>Corporation Tax Act 2010</li>
+          <li>HMRC Capital Gains Tax guidance</li>
+          <li>Housing Act 2004 (HMO licensing)</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇺🇸</div>
+        <div class="source-market">United States</div>
+        <ul class="source-list">
+          <li>IRS Publication 946 (MACRS depreciation)</li>
+          <li>IRC §168 (cost recovery)</li>
+          <li>HUD/FHA guidelines (MIP, DTI limits)</li>
+          <li>VA Lender Handbook (funding fee)</li>
+          <li>CFPB mortgage disclosure rules</li>
+          <li>State transfer tax schedules (all 50 states)</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇵🇱</div>
+        <div class="source-market">Poland</div>
+        <ul class="source-list">
+          <li>Ustawa o PIT — art. 6 ust. 1a (ryczałt 8.5%/12.5%)</li>
+          <li>Ustawa o podatku od czynności cywilnoprawnych (PCC)</li>
+          <li>NBP — loan rate data (WIBOR)</li>
+          <li>GUS — rental market indicators</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇩🇪</div>
+        <div class="source-market">Germany</div>
+        <ul class="source-list">
+          <li>GrEStG (Grunderwerbsteuergesetz) — all 16 Länder</li>
+          <li>§7 Abs.4 EStG (lineare AfA)</li>
+          <li>§7 Abs.5a EStG (degressive AfA)</li>
+          <li>§7b EStG (Sonder-AfA Neubau)</li>
+          <li>GNotKG (Notargebühren)</li>
+          <li>§656c BGB (Bestellerprinzip)</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇫🇷</div>
+        <div class="source-market">France</div>
+        <ul class="source-list">
+          <li>CGI art. 150 U–150 VH (plus-value)</li>
+          <li>CGI art. 32 (micro-foncier)</li>
+          <li>D.Lgs. Loi de Finances 2025 n°2025-127 art.24</li>
+          <li>BOFiP — LMNP réel documentation</li>
+          <li>Barème IR 2026 (3 tranches post-réforme)</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇨🇭</div>
+        <div class="source-market">Switzerland</div>
+        <ul class="source-list">
+          <li>DBG art. 33 (Schuldzinsenabzug, Säule 3a)</li>
+          <li>StHG (Steuerharmonisierungsgesetz)</li>
+          <li>Volksabstimmung 28.09.2025 (Eigenmietwert)</li>
+          <li>OFAS — Säule 3a Limite 2026: CHF 7.258</li>
+          <li>FINMA — Tragbarkeitsregeln (5% stress rate)</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇪🇸</div>
+        <div class="source-market">Spain</div>
+        <ul class="source-list">
+          <li>TRLITPAJD RDLeg 1/1993 (ITP, AJD)</li>
+          <li>Ley 5/2019 de Crédito Inmobiliario (AJD banco)</li>
+          <li>AEAT — ITP rates all 19 CCAA (2026)</li>
+          <li>RD 1426/1989 (aranceles notariales)</li>
+          <li>RD 1427/1989 (aranceles registrales)</li>
+        </ul>
+      </div>
+      <div class="source-card">
+        <div class="source-flag">🇮🇹</div>
+        <div class="source-market">Italy</div>
+        <ul class="source-list">
+          <li>Art. 3 D.Lgs. 23/2011 (cedolare secca)</li>
+          <li>DPR 917/1986 TUIR (IRPEF, scaglioni 2026)</li>
+          <li>Legge di Bilancio 2024 (affitti brevi 26%)</li>
+          <li>D.Lgs. 23/2011 art.9 (IMU base imponibile)</li>
+          <li>Agenzia delle Entrate Circolare 26/E/2011</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPDATE POLICY -->
+  <div class="content-block">
+    <div class="section-tag">Update policy</div>
+    <h2>When calculators are updated</h2>
+    <p>Calculators are updated when the underlying legislation changes — not on a fixed publishing schedule. Each page displays a "Last reviewed" date. The triggers that prompt a review are:</p>
+
+    <div class="update-grid">
+      <div class="update-card">
+        <div class="update-trigger">Immediate</div>
+        <h3>Rate changes</h3>
+        <p>Any change to a tax rate, band threshold or official levy — SDLT, GrESt, ITP rates, IRPEF scaglioni, Pilier 3a limits. Updated within days.</p>
+      </div>
+      <div class="update-card">
+        <div class="update-trigger">Within 30 days</div>
+        <h3>New legislation</h3>
+        <p>Laws that alter the calculation structure — e.g. LF 2025 LMNP reintegration, UK Oct 2024 BTL surcharge, Italian Legge di Bilancio 2024.</p>
+      </div>
+      <div class="update-card">
+        <div class="update-trigger">Quarterly</div>
+        <h3>Routine review</h3>
+        <p>Each market is reviewed quarterly against official sources to catch minor changes, new guidance or court decisions that affect results.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KNOWN LIMITATIONS -->
+  <div class="content-block">
+    <div class="section-tag">Known limitations</div>
+    <h2>What calculators do not cover</h2>
+    <p>Being transparent about limitations is as important as being accurate about what is covered.</p>
+    <ul class="limit-list">
+      <li><strong>Scotland and Wales (UK):</strong> UK calculators apply to England and Northern Ireland only. Scotland uses LBTT and Wales uses LTT — different structures with different rates.</li>
+      <li><strong>German municipal Grundsteuer:</strong> the DE Renditerechner uses an illustrative Grundsteuer figure. The actual amount depends on Bodenrichtwert and the local Hebesatz, which varies by Gemeinde.</li>
+      <li><strong>French SCI IS exit tax:</strong> the complex double-taxation on SCI IS exit (IS on accounting gain + PFU/IR on dividends) is modelled at standard rates. Actual liability depends on retained earnings history and individual tax position.</li>
+      <li><strong>Swiss cantonal tax rates:</strong> CH calculators use a composite Grenzsteuersatz input. Actual rates vary by canton, commune and family situation — Zurich ≠ Geneva ≠ Zug.</li>
+      <li><strong>Spanish CCAA variations:</strong> ITP reduced rates (young buyers, large families, disability) are listed but the eligibility conditions vary by CCAA and are not automatically applied.</li>
+      <li><strong>US state income taxes:</strong> the US Rental ROI calculator models federal tax (Schedule E) only. State income taxes on rental income are not included — they range from 0% (TX, FL) to 13.3% (CA).</li>
+      <li><strong>Inheritance and gift tax:</strong> no market's calculators model succession scenarios — a separate calculation type not yet built.</li>
+    </ul>
+  </div>
+
+  <!-- CALCULATOR INDEX -->
+  <div class="content-block">
+    <div class="section-tag">Calculator index</div>
+    <h2>All 24 calculators with inline methodology</h2>
+    <p>Every calculator below contains an expandable methodology section showing the exact formulas and sources for that specific tool.</p>
+
+    <table class="calc-table">
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th>Calculator</th>
+          <th>Key sources</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="https://mmandai.github.io/#uk" class="market-badge">🇬🇧 UK</a></td>
+          <td><a href="https://mmandai.github.io/uk-rental-yield/">BTL Rental Yield</a></td>
+          <td style="font-size:13px;color:var(--muted);">HMRC · PRA SS13/16 · Finance Act 2015</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#uk" class="market-badge">🇬🇧 UK</a></td>
+          <td><a href="https://mmandai.github.io/uk-sdlt-calculator/">Stamp Duty (SDLT)</a></td>
+          <td style="font-size:13px;color:var(--muted);">HMRC SDLT guidance · Oct 2024 rates</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#uk" class="market-badge">🇬🇧 UK</a></td>
+          <td><a href="https://mmandai.github.io/uk-flip-and-profit/">Flip Profit</a></td>
+          <td style="font-size:13px;color:var(--muted);">HMRC CGT · Finance Act 2015</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#uk" class="market-badge">🇬🇧 UK</a></td>
+          <td><a href="https://mmandai.github.io/uk-hmo-calculator/">HMO Yield</a></td>
+          <td style="font-size:13px;color:var(--muted);">Housing Act 2004 · HMRC</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#uk" class="market-badge">🇬🇧 UK</a></td>
+          <td><a href="https://mmandai.github.io/uk-section24/">Section 24 / Ltd Co</a></td>
+          <td style="font-size:13px;color:var(--muted);">Finance Act 2015 §24 · CTA 2010</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#uk" class="market-badge">🇬🇧 UK</a></td>
+          <td><a href="https://mmandai.github.io/uk-rent-vs-buy/">Rent vs Buy</a></td>
+          <td style="font-size:13px;color:var(--muted);">HMRC SDLT · Bank of England base rate</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#us" class="market-badge">🇺🇸 US</a></td>
+          <td><a href="https://mmandai.github.io/us-mortgage-affordability/">Mortgage Affordability</a></td>
+          <td style="font-size:13px;color:var(--muted);">HUD/FHA guidelines · VA Handbook · CFPB</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#us" class="market-badge">🇺🇸 US</a></td>
+          <td><a href="https://mmandai.github.io/us-rental-roi/">Rental Property ROI</a></td>
+          <td style="font-size:13px;color:var(--muted);">IRS Pub. 946 · IRC §168 (MACRS)</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#us" class="market-badge">🇺🇸 US</a></td>
+          <td><a href="https://mmandai.github.io/us-closing-cost-estimator/">Closing Costs</a></td>
+          <td style="font-size:13px;color:var(--muted);">State transfer tax schedules · CFPB</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#pl" class="market-badge">🇵🇱 PL</a></td>
+          <td><a href="https://mmandai.github.io/pl-kredyt-vs-wynajem/">Kredyt vs Wynajem</a></td>
+          <td style="font-size:13px;color:var(--muted);">Ustawa o PIT · NBP (WIBOR)</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#pl" class="market-badge">🇵🇱 PL</a></td>
+          <td><a href="https://mmandai.github.io/pl-rentownosc-najmu/">Rentowność Najmu</a></td>
+          <td style="font-size:13px;color:var(--muted);">Ustawa o PIT art. 6 ust. 1a (ryczałt)</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#pl" class="market-badge">🇵🇱 PL</a></td>
+          <td><a href="https://mmandai.github.io/pakiet-inwestora/">Pakiet Inwestora</a></td>
+          <td style="font-size:13px;color:var(--muted);">Ustawa o PIT · GUS market prices 2026</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#de" class="market-badge">🇩🇪 DE</a></td>
+          <td><a href="https://mmandai.github.io/de-grunderwerbsteuer/">Grunderwerbsteuer</a></td>
+          <td style="font-size:13px;color:var(--muted);">GrEStG · GNotKG · §656c BGB</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#de" class="market-badge">🇩🇪 DE</a></td>
+          <td><a href="https://mmandai.github.io/de-renditerechner/">Renditerechner</a></td>
+          <td style="font-size:13px;color:var(--muted);">§7 EStG · §21 EStG · GrEStG</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#de" class="market-badge">🇩🇪 DE</a></td>
+          <td><a href="https://mmandai.github.io/de-afa/">AfA-Rechner</a></td>
+          <td style="font-size:13px;color:var(--muted);">§7 Abs.4 · §7 Abs.5a · §7b EStG</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#fr" class="market-badge">🇫🇷 FR</a></td>
+          <td><a href="https://mmandai.github.io/fr-rendement-locatif/">Rendement Locatif LMNP</a></td>
+          <td style="font-size:13px;color:var(--muted);">CGI · LF 2025 n°2025-127 · BOFiP</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#fr" class="market-badge">🇫🇷 FR</a></td>
+          <td><a href="https://mmandai.github.io/fr-plus-value-immobiliere/">Plus-Value Immobilière</a></td>
+          <td style="font-size:13px;color:var(--muted);">CGI art.150 U · LF 2025 art.24</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#ch" class="market-badge">🇨🇭 CH</a></td>
+          <td><a href="https://mmandai.github.io/ch-fr-amortissement-direct-vs-indirect/">Amortissement FR</a></td>
+          <td style="font-size:13px;color:var(--muted);">DBG art.33 · OFAS · Votation 28.09.2025</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#ch" class="market-badge">🇨🇭 CH</a></td>
+          <td><a href="https://mmandai.github.io/ch-de-direkte-vs-indirekte-rechner/">Amortisation DE</a></td>
+          <td style="font-size:13px;color:var(--muted);">DBG art.33 · StHG · BSV</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#es" class="market-badge">🇪🇸 ES</a></td>
+          <td><a href="https://mmandai.github.io/es-itp/">Calculadora ITP</a></td>
+          <td style="font-size:13px;color:var(--muted);">TRLITPAJD · Ley 5/2019 · AEAT 2026</td>
+        </tr>
+        <tr>
+          <td><a href="https://mmandai.github.io/#it" class="market-badge">🇮🇹 IT</a></td>
+          <td><a href="https://mmandai.github.io/it-cedolare-secca-vs-irpef/">Cedolare Secca vs IRPEF</a></td>
+          <td style="font-size:13px;color:var(--muted);">D.Lgs.23/2011 · TUIR · LdB 2024</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end content -->
+
+<!-- DARK BAND -->
+<div class="dark-band">
+  <div class="dark-band-inner">
+    <div class="dark-tag">Transparency</div>
+    <h2>Why publish the <em>methodology</em>?</h2>
+    <p>Because a calculator you can't verify is just a black box. Every formula is published openly — both here and inside each individual calculator. If you spot an error or a rate that needs updating, <a href="mailto:imemyselfandai@gmail.com" style="color:var(--red);text-decoration:underline;">email us</a>.</p>
+    <p><strong>All content is free to reference and cite</strong> for informational purposes. Results are estimates — not financial, tax or legal advice. Always consult a qualified professional before making property decisions.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Use the calculators</h2>
+  <p>All 24 calculators are free, no signup required. Excel versions are available for offline use.</p>
+  <div class="btn-row">
+    <a href="https://mmandai.github.io" class="btn-primary">All Calculators →</a>
+    <a href="https://mmandai.github.io/about/" class="btn-outline">About MMDAI</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">MMDAI</div>
+    <div class="footer-links">
+      <a href="https://mmandai.github.io">All Calculators</a>
+      <a href="https://mmandai.github.io/about/">About</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://mmandai.github.io/uk-glossary/">UK Glossary</a>
+      <a href="https://mmandai.github.io/us-glossary/">US Glossary</a>
+      <a href="https://mmandai.github.io/us-glosario/">US Glosario</a>
+      <a href="https://mmandai.github.io/pl-slownik/">Słownik PL</a>
+      <a href="https://mmandai.github.io/de-glossar/">DE Glossar</a>
+      <a href="https://mmandai.github.io/fr-glossaire/">Glossaire FR</a>
+      <a href="https://mmandai.github.io/ch-glossaire/">Glossaire CH</a>
+      <a href="https://mmandai.github.io/ch-glossar/">CH Glossar</a>
+      <a href="https://mmandai.github.io/es-glosario/">Glosario ES</a>
+      <a href="https://mmandai.github.io/it-glossario/">Glossario IT</a>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:imemyselfandai@gmail.com">Contact</a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">
+      MMDAI — Free real estate calculators for UK, US, Poland, Germany, France, Switzerland, Spain and Italy.<br>
+      Results are estimates, not financial advice. Last reviewed May 2026.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
